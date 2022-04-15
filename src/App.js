@@ -1,10 +1,17 @@
 //import logo from './logo.svg';
-//import React from 'react';
-import './styles.scss';
-//import './App.css';
+import React from 'react';
+import './App.css';
+import StocksDropdown from './StocksDropdown/StocksDropdown';
+import Stocks from './Stocks/Stocks';
 
 function App() {
-  return 'App Page Here';
+  return (
+    <div>
+      <h1>Stock Comparison</h1>
+      <StocksDropdown/>
+      <Stocks/>
+    </div>
+  );
   /*return (
     <div className="App">
       <header className="App-header">

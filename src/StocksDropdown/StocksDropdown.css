@@ -1,0 +1,46 @@
+.stocks-dropdown {
+    display: inline-block;
+    width: 350px;
+    position: relative;
+}
+
+.stocks-dropdown__input {
+    cursor: pointer;
+    width: 94.5%;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    outline: none;
+}
+
+.stocks-dropdown__options {
+    width: 100%;
+    border-radius: 3px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+    position: absolute;
+    background-color: white;
+    opacity: 0;   
+}
+
+.stocks-dropdown__options.options--open {
+    opacity: 1;
+}
+
+.stocks-dropdown__options__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100px;
+    overflow: auto;
+}
+
+.stocks-dropdown__options__list__item {
+    padding: 8px;
+}
+
+.stocks-dropdown__options__list__item:hover, .stocks-dropdown__options__list__item.item--active {
+    background-color: lightgray;
+}
