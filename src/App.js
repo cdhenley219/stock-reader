@@ -1,35 +1,16 @@
-//import logo from './logo.svg';
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
-import StocksDropdown from './StocksDropdown/StocksDropdown';
-import Stocks from './Stocks/Stocks';
+import StocksPicker from './components/StocksPicker';
+import Stocks from './components/Stocks';
 
 function App() {
   return (
-    <div>
+    <Fragment>
       <h1>Stock Comparison</h1>
-      <StocksDropdown/>
+      <StocksPicker/>
       <Stocks/>
-    </div>
+    </Fragment>
   );
-  /*return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );*/
 }
 
 export default App;

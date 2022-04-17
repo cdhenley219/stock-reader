@@ -1,5 +1,5 @@
 import React from 'react';
-import './Stock.css';
+import './index.css';
 
 const Stock = () => {};
 
