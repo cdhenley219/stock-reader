@@ -33,7 +33,7 @@ const StocksPicker = () => {
         }
     };
 
-    const canOptionsOpen = () => pickerOpened && selectedList.length < 3 && stocksList.length > 0;
+    const canOptionsOpen = () => pickerOpened && selectedList.length <= 3 && stocksList.length > 0;
 
     const selectStock = item => {
         setPickerOpened(false);
