@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchStocksBySymbol,
             pushSelectedStock,
-            fetchStockOverview,
-            fetchStockQuote 
+            fetchLastStockOverview,
+            fetchLastStockQuote 
         } from '../../store/stocksSlice';
 import useOnOutsideClick from '../../hooks/useOnOutsideClick';
 import './index.css';
@@ -38,8 +38,8 @@ const StocksPicker = () => {
     const selectStock = item => {
         setPickerOpened(false);
         dispatch(pushSelectedStock(item));
-        dispatch(fetchStockOverview(item['1. symbol']));
-        dispatch(fetchStockQuote(item['1. symbol']));
+        dispatch(fetchLastStockOverview(item['1. symbol']));
+        dispatch(fetchLastStockQuote(item['1. symbol']));
     };  
 
     useOnOutsideClick(containerRef, () => setPickerOpened(false));

@@ -18,7 +18,7 @@ export const fetchStocksBySymbol = createAsyncThunk('stocks/fetchItemsBySymbol',
     }                 
 );
 
-export const fetchStockOverview = createAsyncThunk('stocks/fetchItemOverview', 
+export const fetchLastStockOverview = createAsyncThunk('stocks/fetchItemOverview', 
     async (arg) => {
         try {
             const response = await stockApi.fetchItemOverview(arg);
@@ -30,7 +30,7 @@ export const fetchStockOverview = createAsyncThunk('stocks/fetchItemOverview',
     }                 
 );
 
-export const fetchStockQuote = createAsyncThunk('stocks/fetchItemQuote', 
+export const fetchLastStockQuote = createAsyncThunk('stocks/fetchItemQuote', 
     async (arg) => {
         try {
             const response = await stockApi.fetchItemQuote(arg);
@@ -73,13 +73,13 @@ export const stocksSlice = createSlice({
             alert('Error fetching list of stocks');
         });
 
-        builder.addCase(fetchStockOverview.fulfilled, (state, action) => {
+        builder.addCase(fetchLastStockOverview.fulfilled, (state, action) => {
             const index = state.selectedDetailsList.length - 1;
             const item = state.selectedDetailsList[index];
             item.overview = action.payload;
         });
 
-        builder.addCase(fetchStockQuote.fulfilled, (state, action) => {
+        builder.addCase(fetchLastStockQuote.fulfilled, (state, action) => {
             const index = state.selectedDetailsList.length - 1;
             const item = state.selectedDetailsList[index];
             item.quote = action.payload;
