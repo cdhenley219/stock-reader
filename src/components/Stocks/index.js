@@ -1,26 +1,23 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { popSelectedStock } from '../../store/stocksSlice';
+import { useSelector } from 'react-redux';
+import NullStock from './NullStock';
+import Stock from './Stock';
 import './index.css';
 
 const Stocks = () => {
     const selectedList = useSelector(state => state.stock.selectedDetailsList);
-    const dispatch = useDispatch();
     const stocksList = selectedList.map((item, index) => (
-        <div key={index}>
-            <span>{item.symbol}</span>
-            {(index === selectedList.length-1) && <button onClick={() => dispatch(popSelectedStock()) }>Remove</button>}
-        </div>
+            <Stock key={index} data={item} isRemovable={(index === selectedList.length-1)}/>
     ));
     const nullList = new Array(3 - selectedList.length)
                     .fill(null)
-                    .map((item, index) => <div key={index}>nothing to see here</div>);
+                    .map((item, index) => <div className="stock" key={index}><NullStock/></div>);
 
     return (
-        <div className="stocks">
-            {stocksList}
-            {nullList}
-        </div>
+        <section className="stocks">
+             {stocksList} 
+             {nullList}
+        </section>
     )
 };
 

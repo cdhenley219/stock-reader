@@ -4,14 +4,18 @@
     position: relative;
 }
 
+.stocks-picker__label {
+    font-size: 12px;
+}
+
 .stocks-picker__input {
+    margin-bottom: 5px;
     width: 94.5%;
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 3px;
     outline: none;
     color: darkgray;
-    font-weight: 600;
 }
 
 .stocks-picker__error {
@@ -28,12 +32,10 @@
     cursor: pointer;
     position: absolute;
     background-color: white;
-   /* opacity: 0;   */
     display: none;
 }
 
 .stocks-picker__options.options--open {
-    /*opacity: 1;*/
     display: block;
 }
 

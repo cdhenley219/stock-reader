@@ -6,41 +6,21 @@ const initialState = {
     selectedDetailsList: []
 };
 
-export const fetchStocksBySymbol = createAsyncThunk('stocks/fetchItemsBySymbol', 
+const asyncEndpoint = endpoint => (
     async (arg='') => {
         try {
-            const response = await stockApi.fetchItemsBySymbol(arg);
-            return response.json()
+            const response = await endpoint.call(arg);
+            return response.json();
           
         } catch (error) {
             console.error(error);
-        } 
-    }                 
+        }
+    }
 );
 
-export const fetchLastStockOverview = createAsyncThunk('stocks/fetchItemOverview', 
-    async (arg) => {
-        try {
-            const response = await stockApi.fetchItemOverview(arg);
-            return response.json()
-        
-        } catch (error) {
-            console.error(error);
-        } 
-    }                 
-);
-
-export const fetchLastStockQuote = createAsyncThunk('stocks/fetchItemQuote', 
-    async (arg) => {
-        try {
-            const response = await stockApi.fetchItemQuote(arg);
-            return response.json()
-        
-        } catch (error) {
-            console.error(error);
-        } 
-    }                 
-);
+export const fetchStocksBySymbol = createAsyncThunk('stocks/fetchItemsBySymbol', asyncEndpoint(stockApi.fetchItemsBySymbol));
+export const fetchLastStockOverview = createAsyncThunk('stocks/fetchItemOverview', asyncEndpoint(stockApi.fetchItemOverview));
+export const fetchLastStockQuote = createAsyncThunk('stocks/fetchItemQuote', asyncEndpoint(stockApi.fetchItemQuote));
 
 export const stocksSlice = createSlice({
     name: 'stocks',

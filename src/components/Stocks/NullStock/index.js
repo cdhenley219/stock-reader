@@ -1,6 +1,12 @@
 import React from 'react';
-import './NullStock.css';
 
-const NullStock = () => {};
+const NullStock = () => (
+    <p className="stock__message"> 
+        Pick an additional stock <br/> 
+        symbol in the search <br/>
+        box above to display <br/>
+        stock information
+    </p>
+);
 
 export default NullStock;

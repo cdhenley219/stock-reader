@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchStocksBySymbol,
             pushSelectedStock,
             fetchLastStockOverview,
-            fetchLastStockQuote 
+            fetchLastStockQuote, 
+            resetList
         } from '../../store/stocksSlice';
 import useOnOutsideClick from '../../hooks/useOnOutsideClick';
 import './index.css';
@@ -23,17 +24,27 @@ const StocksPicker = () => {
         </li>
     ));
 
-    const handleInputClick = () => {
+    const handleInputClick = e => {
         if (selectedList.length < 3) {
             setPickerOpened(true);
-        }
-        
+        }  
         else {
             setError('Only 3 stocks can be selected at a time.');
         }
     };
 
-    const canOptionsOpen = () => pickerOpened && selectedList.length <= 3 && stocksList.length > 0;
+    const handleInputKeyUp = e => {
+        const inputValue = e.target.value;
+        if (inputValue.length > 0) {
+            dispatch(fetchStocksBySymbol(inputValue));
+        }
+        else {
+            dispatch(resetList());
+        }
+        
+    };
+
+   const canOptionsStayOpen = pickerOpened && selectedList.length <= 3 && stocksList.length > 0;
 
     const selectStock = item => {
         setPickerOpened(false);
@@ -46,9 +57,10 @@ const StocksPicker = () => {
 
     return (
         <div className="stocks-picker" ref={containerRef}>
-            <input className="stocks-picker__input" readOnly={selectedList.length === 3} onKeyUp={e => dispatch(fetchStocksBySymbol(e.target.value))} onClick={() => handleInputClick()} />
+            <label for="stock-picker-input" className="stocks-picker__label">Enter up to 3 stocks to compare thee current stock prices.</label>
+            <input id="stock-picker-input" className="stocks-picker__input" readOnly={selectedList.length === 3} onKeyUp={handleInputKeyUp} onClick={handleInputClick} />
             <div className="stocks-picker__error" hidden={!error}>{error}</div>
-            <div className={`stocks-picker__options ${canOptionsOpen() ? "options--open" : ""}`}>
+            <div className={`stocks-picker__options ${canOptionsStayOpen ? "options--open" : ""}`}>
                 <ul className="stocks-picker__options__list">{listItems}</ul>
             </div>
         </div>

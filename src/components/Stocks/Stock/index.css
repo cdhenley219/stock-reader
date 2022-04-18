@@ -1,0 +1,70 @@
+.stock {
+    display: inline-block;
+    height: 100%;
+    width: 30%;
+    padding: 20px;
+    border-right: 1px solid black;
+}
+
+.stock__message {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkgray;
+    text-align: right;
+}
+
+.stock__head {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.stock__head__text {
+    word-wrap: anywhere;
+}
+
+.stock__main {
+    margin: 60px 0;
+    display: flex;
+    align-items: center;
+}
+
+.stock__main__data{
+    padding-left: 20px;
+}
+
+.stock__main__data__price, .stock__main__data__change {
+    display: block;
+}
+
+.stock__main__data__price {
+    font-size: 26px;
+}
+
+.stock__main__data__change {
+    font-size: 20px;
+}
+
+.stock__main__data__change.change--positive {
+    color: green;
+}
+
+.stock__main__data__change.change--negative {
+    color: red;
+}
+
+.stock__details__table {
+    width: 100%;
+    font-size: 20px;
+}
+
+.stock__details__table__row__header {
+    font-weight: normal;
+    text-align: left;
+    color: darkgray;
+}
+
+
+
