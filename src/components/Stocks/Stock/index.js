@@ -8,13 +8,11 @@ import './index.css';
 
 const Stock = ({ data, isRemovable = false }) => {
     const dispatch = useDispatch();
-    const convertToNum = str => (str.length > 0 ? parseFloat(str).toFixed(2) : 0.00);
-
+    const convertToNum = str => (str && !isNaN(str)) > 0 ? parseFloat(str) : 0.00;
 
     useEffect(() => {
         dispatch(fetchLastStockQuote(data.symbol));
     }, [data.symbol]);
-
 
     return (<div className="stock">
         <div className="stock__head">
@@ -22,7 +20,6 @@ const Stock = ({ data, isRemovable = false }) => {
             {isRemovable && <Close/>} 
         </div>         
       
-
       { data.quote && 
        ( <React.Fragment>
             <div className="stock__main">
