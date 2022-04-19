@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { stockApi } from '../utils/stockApi';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 const asyncEndpoint = endpoint => (
     async (arg='') => {
         try {
-            const response = await endpoint.call(arg);
+            const response =  await endpoint(arg);
             return response.json();
           
         } catch (error) {
@@ -22,6 +22,7 @@ export const fetchStocksBySymbol = createAsyncThunk('stocks/fetchItemsBySymbol',
 export const fetchLastStockOverview = createAsyncThunk('stocks/fetchItemOverview', asyncEndpoint(stockApi.fetchItemOverview));
 export const fetchLastStockQuote = createAsyncThunk('stocks/fetchItemQuote', asyncEndpoint(stockApi.fetchItemQuote));
 
+
 export const stocksSlice = createSlice({
     name: 'stocks',
     initialState,
@@ -31,7 +32,7 @@ export const stocksSlice = createSlice({
         },
        
         pushSelectedStock: (state, action) => {
-            const item = { symbol: action.payload['1. symbol'] };
+            const item = { symbol: action.payload['1. symbol'], name: action.payload['2. name']};
             const foundItem = state.selectedDetailsList.find(listItem => listItem.symbol === item.symbol);
 
             if (!foundItem) {
@@ -56,13 +57,15 @@ export const stocksSlice = createSlice({
         builder.addCase(fetchLastStockOverview.fulfilled, (state, action) => {
             const index = state.selectedDetailsList.length - 1;
             const item = state.selectedDetailsList[index];
-            item.overview = action.payload;
+            item.overview = action.payload || {};
+            console.log(current(state))
         });
 
         builder.addCase(fetchLastStockQuote.fulfilled, (state, action) => {
             const index = state.selectedDetailsList.length - 1;
             const item = state.selectedDetailsList[index];
-            item.quote = action.payload;
+            item.quote = action.payload["Global Quote"] || {};
+            console.log(current(state))
         });
     }
 });

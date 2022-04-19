@@ -1,48 +1,56 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import {fetchLastStockQuote} from '../../../store/stocksSlice';
 import Close from '../../Close';
 import ArrowImage from '../../ArrowImage';
 import './index.css';
 
-const Stock = ({ data, isRemovable = false }) => {    
+const Stock = ({ data, isRemovable = false }) => {
+    const dispatch = useDispatch();
 
-    return (
-        <div className="stock">
-            <div className="stock__head">
-                <h2 className="stock__head__text">{data.overview.name}</h2>
-                {isRemovable && <Close/>} 
-            </div>
-            
-            
+    useEffect(() => {
+        dispatch(fetchLastStockQuote(data.symbol));
+    }, [data.symbol]);
+
+
+    return (<div className="stock">
+        <div className="stock__head">
+            <h2 className="stock__head__text">{data.name}</h2>
+            {isRemovable && <Close/>} 
+        </div>         
+      
+
+      { data.quote && 
+       ( <React.Fragment>
             <div className="stock__main">
-                <ArrowImage priceChange={data.quote.change}/>
+                <ArrowImage priceChange={parseFloat(data.quote['09. change'])}/>
                 <div className="stock__main__data">
-                    <span className="stock__main__data__price">{`$${data.quote.price}`}</span>
-                    <span className={`stock__main__data__change change--positive`}>{`${data.quote.change}%`}</span>
+                    <span className="stock__main__data__price">{`$${data.quote['05. price']}`}</span>
+                    <span className={`stock__main__data__change ${data.quote['10. change percent'].charAt(0) === '-' ? 'change--negative':'change--positive' }`}>{`${data.quote['10. change percent']}`}</span>
                 </div>
-            </div>
+            </div>  
 
-           
             <div className="stock__details">
                 <h2>Stats</h2>
                 <table className="stock__details__table">
                     <tr className="stock__details__table__row">
                         <th className="stock__details__table__row__header" scope="row">High</th>
-                        <td className="stock__details__table__row__data">{data.overview['52WeekHigh']}</td>
+                        <td className="stock__details__table__row__data">{data.quote['03. high']}</td>
                     </tr>
 
                     <tr className="stock__details__table__row">
                         <th className="stock__details__table__row__header" scope="row">Low</th>
-                        <td className="stock__details__table__row__data">{data.overview['52WeekLow']}</td>
+                        <td className="stock__details__table__row__data">{data.quote['04. low']}</td>
                     </tr>
                 </table>
             </div>
-        </div>
-    );
+        </React.Fragment>)}
+    </div>)
 };
 
 Stock.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
+    data: PropTypes.object,
     isRemovable: PropTypes.bool
 };
 

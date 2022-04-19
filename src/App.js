@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import './App.css';
 import StocksPicker from './components/StocksPicker';
 import Stocks from './components/Stocks';
 

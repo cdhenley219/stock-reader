@@ -6,7 +6,7 @@ import './index.css';
 
 const ArrowImage = ({ priceChange = 0 }) => {
     const imgSrc = priceChange < 0 ? downRedArrow : upGreenArrow;
-    return <img src={imgSrc} className="arrow-image"/>
+    return <img src={imgSrc} className="arrow-image" alt="Arrow"/>
 };
 
 ArrowImage.propTypes = {

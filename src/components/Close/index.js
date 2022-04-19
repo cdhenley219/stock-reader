@@ -8,7 +8,7 @@ const Close = () => {
     return ( 
         <div className="close">
             <button id="close-button" className="close__button" onClick={() => dispatch(popSelectedStock())}>X</button>
-            <label for="close-button" className="close__label">Remove</label>
+            <label htmlFor="close-button" className="close__label">Remove</label>
         </div>
    )
 };

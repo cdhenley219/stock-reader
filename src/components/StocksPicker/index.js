@@ -2,8 +2,6 @@ import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchStocksBySymbol,
             pushSelectedStock,
-            fetchLastStockOverview,
-            fetchLastStockQuote, 
             resetList
         } from '../../store/stocksSlice';
 import useOnOutsideClick from '../../hooks/useOnOutsideClick';
@@ -49,15 +47,13 @@ const StocksPicker = () => {
     const selectStock = item => {
         setPickerOpened(false);
         dispatch(pushSelectedStock(item));
-        dispatch(fetchLastStockOverview(item['1. symbol']));
-        dispatch(fetchLastStockQuote(item['1. symbol']));
     };  
 
     useOnOutsideClick(containerRef, () => setPickerOpened(false));
 
     return (
         <div className="stocks-picker" ref={containerRef}>
-            <label for="stock-picker-input" className="stocks-picker__label">Enter up to 3 stocks to compare thee current stock prices.</label>
+            <label htmlFor="stock-picker-input" className="stocks-picker__label">Enter up to 3 stocks to compare thee current stock prices.</label>
             <input id="stock-picker-input" className="stocks-picker__input" readOnly={selectedList.length === 3} onKeyUp={handleInputKeyUp} onClick={handleInputClick} />
             <div className="stocks-picker__error" hidden={!error}>{error}</div>
             <div className={`stocks-picker__options ${canOptionsStayOpen ? "options--open" : ""}`}>
