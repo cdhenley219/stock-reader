@@ -8,7 +8,7 @@ import './index.css';
 
 const Stock = ({ data, isRemovable = false }) => {
     const dispatch = useDispatch();
-    const convertToNum = string => string.length > 0 ? parseFloat(string).toFixed(2) : 0.00;
+    const convertToNum = str => (str.length > 0 ? parseFloat(str).toFixed(2) : 0.00);
 
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const Stock = ({ data, isRemovable = false }) => {
                 <div className="stock__main__data">
                     <span className="stock__main__data__price">${convertToNum(data.quote['05. price'])}</span>
                     <span className={`stock__main__data__change ${data.quote['10. change percent'].charAt(0) === '-' ? 'change--negative':'change--positive' }`}>
-                        {convertToNum(data.quote['10. change percent'])}%
+                        {data.quote['10. change percent']}
                     </span>
                 </div>
             </div>  
