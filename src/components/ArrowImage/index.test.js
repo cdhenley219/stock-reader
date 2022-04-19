@@ -1,15 +1,15 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom'
 import ArrowImage from './index';
-import downRedArrow from '../../assets/red-arrow-down.png';
-import upGreenArrow from '../../assets/green-arrow-up.png';
 
-test('renders green up arrow image', () => {
+test('renders arrow up image', () => {
     render(<ArrowImage priceChange={5.00}/>);
-    //const container = <img src={upGreenArrow} className="arrow-image" alt="Arrow"/>;
-    expect(container).toMatchSnapshot()
+    expect(screen.getByRole('img', {alt:/iarrow-up/})).toBeTruthy();
 });
 
-/*test('renders red down arrow image', () => {
+test('renders arrow down image', () => {
     render(<ArrowImage priceChange={-5.00}/>);
-  
-  });*/
+    expect(screen.getByRole('img', {alt:/iarrow-down/})).toBeTruthy();
+});
+
