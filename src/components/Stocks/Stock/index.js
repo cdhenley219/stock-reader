@@ -8,7 +8,8 @@ import './index.css';
 
 const Stock = ({ data, isRemovable = false }) => {
     const dispatch = useDispatch();
-    const convertToNum = string => parseFloat(string).toFixed(2);
+    const convertToNum = string => string.length > 0 ? parseFloat(string).toFixed(2) : 0.00;
+
 
     useEffect(() => {
         dispatch(fetchLastStockQuote(data.symbol));
@@ -27,9 +28,7 @@ const Stock = ({ data, isRemovable = false }) => {
             <div className="stock__main">
                 <ArrowImage priceChange={convertToNum(data.quote['09. change'])}/>
                 <div className="stock__main__data">
-                    <span className="stock__main__data__price">
-                        ${convertToNum(data.quote['05. price'])}
-                    </span>
+                    <span className="stock__main__data__price">${convertToNum(data.quote['05. price'])}</span>
                     <span className={`stock__main__data__change ${data.quote['10. change percent'].charAt(0) === '-' ? 'change--negative':'change--positive' }`}>
                         {convertToNum(data.quote['10. change percent'])}%
                     </span>
@@ -39,6 +38,7 @@ const Stock = ({ data, isRemovable = false }) => {
             <div className="stock__details">
                 <h2>Stats</h2>
                 <table className="stock__details__table">
+                    <tbody>
                     <tr className="stock__details__table__row">
                         <th className="stock__details__table__row__header" scope="row">High</th>
                         <td className="stock__details__table__row__data">{convertToNum(data.quote['03. high'])}</td>
@@ -48,6 +48,7 @@ const Stock = ({ data, isRemovable = false }) => {
                         <th className="stock__details__table__row__header" scope="row">Low</th>
                         <td className="stock__details__table__row__data">{convertToNum(data.quote['04. low'])}</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </React.Fragment>)}
