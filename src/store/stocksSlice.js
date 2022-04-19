@@ -64,7 +64,7 @@ export const stocksSlice = createSlice({
         builder.addCase(fetchLastStockQuote.fulfilled, (state, action) => {
             const index = state.selectedDetailsList.length - 1;
             const item = state.selectedDetailsList[index];
-            item.quote = action.payload["Global Quote"] || {};
+            item.quote = action.payload["Global Quote"];
             console.log(current(state))
         });
     }
