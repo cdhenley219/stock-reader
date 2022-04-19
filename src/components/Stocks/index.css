@@ -1,5 +1,6 @@
 .stocks {
    height: 100%;
    display: flex;
+   margin-top: 100px;
 }
 
