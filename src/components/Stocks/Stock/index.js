@@ -8,7 +8,8 @@ import './index.css';
 
 const Stock = ({ data, isRemovable = false }) => {
     const dispatch = useDispatch();
-    const convertToNum = str => (str && !isNaN(str)) > 0 ? parseFloat(str) : 0.00;
+    const convertToNum = str => (str && !isNaN(str)) > 0 ? Number(parseFloat(str).toFixed(2)) : 0.00;
+    const convertPercentage = str => `${convertToNum(str.slice(0,str.length-1))}%`;
 
     useEffect(() => {
         dispatch(fetchLastStockQuote(data.symbol));
@@ -27,7 +28,7 @@ const Stock = ({ data, isRemovable = false }) => {
                 <div className="stock__main__data">
                     <span className="stock__main__data__price">${convertToNum(data.quote['05. price'])}</span>
                     <span className={`stock__main__data__change ${data.quote['10. change percent'].charAt(0) === '-' ? 'change--negative':'change--positive' }`}>
-                        {data.quote['10. change percent']}
+                        {convertPercentage(data.quote['10. change percent'])}
                     </span>
                 </div>
             </div>  
