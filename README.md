@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Basic Stock Reader
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Node v16.14.2 and up is required.
 
 ## Available Scripts
 
