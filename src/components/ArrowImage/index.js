@@ -4,9 +4,9 @@ import downRedArrow from '../../assets/red-arrow-down.png';
 import upGreenArrow from '../../assets/green-arrow-up.png';
 import './index.css';
 
-const ArrowImage = ({ priceChange }) => {
-    const imgSrc = priceChange < 0 ? downRedArrow : upGreenArrow;
-    const alt = priceChange < 0 ? 'arrow down' : 'arrow up';
+const ArrowImage = ({ priceChange = 0.00 }) => {
+    const imgSrc = priceChange < 0.00 ? downRedArrow : upGreenArrow;
+    const alt = priceChange < 0.00 ? 'arrow down' : 'arrow up';
 
     return <img src={imgSrc} className="arrow-image" alt={alt}/>
 };

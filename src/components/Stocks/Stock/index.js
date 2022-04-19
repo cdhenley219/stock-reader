@@ -8,8 +8,8 @@ import './index.css';
 
 const Stock = ({ data, isRemovable = false }) => {
     const dispatch = useDispatch();
-    const convertToNum = str => (str && !isNaN(str)) > 0 ? Number(parseFloat(str).toFixed(2)) : 0.00;
-    const convertPercentage = str => `${convertToNum(str.slice(0,str.length-1))}%`;
+    const convertToFloatStr = str => (str && !isNaN(str)) ? parseFloat(str).toFixed(2) : '0.00';
+    const convertPercentage = str => `${Math.abs(Number(convertToFloatStr(str.slice(0,str.length-1))))}%`;
 
     useEffect(() => {
         dispatch(fetchLastStockQuote(data.symbol));
@@ -24,9 +24,9 @@ const Stock = ({ data, isRemovable = false }) => {
       { data.quote && 
        ( <React.Fragment>
             <div className="stock__main">
-                <ArrowImage priceChange={convertToNum(data.quote['09. change'])}/>
+                <ArrowImage priceChange={Number(convertToFloatStr(data.quote['09. change']))}/>
                 <div className="stock__main__data">
-                    <span className="stock__main__data__price">${convertToNum(data.quote['05. price'])}</span>
+                    <span className="stock__main__data__price">${parseInt(data.quote['05. price'])}</span>
                     <span className={`stock__main__data__change ${data.quote['10. change percent'].charAt(0) === '-' ? 'change--negative':'change--positive' }`}>
                         {convertPercentage(data.quote['10. change percent'])}
                     </span>
@@ -39,12 +39,12 @@ const Stock = ({ data, isRemovable = false }) => {
                     <tbody>
                     <tr className="stock__details__table__row">
                         <th className="stock__details__table__row__header" scope="row">High</th>
-                        <td className="stock__details__table__row__data">{convertToNum(data.quote['03. high'])}</td>
+                        <td className="stock__details__table__row__data">{convertToFloatStr(data.quote['03. high'])}</td>
                     </tr>
 
                     <tr className="stock__details__table__row">
                         <th className="stock__details__table__row__header" scope="row">Low</th>
-                        <td className="stock__details__table__row__data">{convertToNum(data.quote['04. low'])}</td>
+                        <td className="stock__details__table__row__data">{convertToFloatStr(data.quote['04. low'])}</td>
                     </tr>
                     </tbody>
                 </table>
